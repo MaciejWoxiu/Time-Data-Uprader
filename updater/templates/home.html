@@ -1,0 +1,27 @@
+{% extends "index.html" %}
+{% block content %}
+<img src="{{url_for('static', filename='image/projekt1.jpg')}}"/>
+<img src="{{url_for('static', filename='image/instruct.jpg')}}"/>
+
+<div class="home_instruction">
+    <h4>1. Konieczne jest logowanie aby była możliwość sprawdzenia logów, wrzucenia plików czy też zobaczenie drzewka plików. Żeby możnabyło się zalogować na początku konieczna jest rejestracja </h4>
+    <img class="img_home" src="{{url_for('static', filename='image/dyplom.jpg')}}"/>
+</div>
+<div class="home_instruction">
+    <h4>2. Po prawidłowej rejestrecji strtona natychmiast przekierowuje na strone logowania z komunikatem jak w obrazku poniżej. Konieczne jest wprowadzenie wcześniej podanych danych aby się zalogować </h4>
+    <img class="img_home" src="{{url_for('static', filename='image/dyplom2.jpg')}}"/>
+</div>
+<div class="home_instruction">
+    <h4>3. Po zalogowaniu pojawią się nowe dosępne zakładki "Upload", "Logs" oraz "Files</h4>    
+    <img class="img_home" src="{{url_for('static', filename='image/dyplom3.jpg')}}"/>
+</div>
+
+<div class="home_instruction">
+    <h4>4. Zakładka "Upload" jest to głowna zakładka strony. Za jej pośredninctwem wrzucamy pliki aktualizacyjne, wystarczy przeciagnac pliki na wyznaczone pole lub klikajac w wyznaczone pole</h4>
+    <img class="img_home" src="{{url_for('static', filename='image/dyplom4.jpg')}}"/>
+</div>
+<div class="home_instruction">
+    <h4>5. W zakładce "Logs" znajdziemy informacje na tetmat wrzuconych plików, mianowicie czy zostały wrzucoone, czy takie pliki juz istnieją w strukurze oraz czemu nie udało się ich wysłać</h4>
+    <img class="img_home" src="{{url_for('static', filename='image/dyplom5.jpg')}}"/>
+</div>
+{% endblock content %}

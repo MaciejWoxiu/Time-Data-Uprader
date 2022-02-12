@@ -1,0 +1,18 @@
+       <!-- <table id="datatable" class="display">
+            <thead>
+                <tr>
+                    <th>SYMBOL</th>
+                    <th>DATE</th>
+                    <th>NUMER</th>
+                </tr>
+            </thead>
+            <tbody>
+                {%for i in range(0, (text.split(',')%}    
+                        <tr>
+                            <td> {{text.split(',')[i]}} </td>
+                            <td> {{text.split(',')[i+1]}} </td>
+                            <td> {{text.split(',')[i+2]}} </td>
+                        </tr>
+                {%endfor%}
+            </tbody>
+        </table> -->

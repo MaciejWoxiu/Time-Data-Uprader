@@ -1,0 +1,16 @@
+{% extends "index.html" %}
+{% block content %}
+<h1>{{ tree.name }}</h1>
+<ul>
+{%- for item in tree.children recursive %}
+        {% if '.txt' in item.name  %}
+            <li><a href=/files/{{ item.name }}>{{ item.name.split('.')[0] }}</a>
+        {% else %}
+            <li><a>{{ item.name }}</a>
+        {% endif %}
+    {%- if item.children -%}
+        <ul>{{ loop(item.children) }}</ul>
+    {%- endif %}</li>
+{%- endfor %}
+</ul>
+{% endblock content %}

@@ -1,0 +1,2 @@
+symbol,data,numer
+SYM10,2011-10-12,254

@@ -1,0 +1,98 @@
+{% extends "index.html" %}
+{% block content %}
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+    $('#datatable').dataTable()
+    });
+</script>
+
+
+
+<p id="demo"></p>
+
+<form action="" method='POST'>
+<table id="datatable" class="display">
+    <thead>
+        <tr>
+            <th style="text-align: center;">NAZWA PLIKU</th>
+            <th style="text-align: center;">ID</th>
+            <th style="text-align: center;">SYMBOL</th>
+            <th style="text-align: center;">DATA</th>
+            <th style="text-align: center;">NUMER</th>
+            <th style="text-align: center;">INFORMACJA</th>
+            <th style="text-align: center;">DATA AKTUALIZACJI</th>
+        </tr>
+    </thead>
+    <tbody>
+    {%for i in range(0, (text.split(',')|length - 1), 7)%}
+        {%if 'Pominięty' in text.split(',')[i+5]%}
+            {%if 'error_logs' in option or ('last_update' in option and 'error_logs' in option) %}
+                <tr>
+                    <td> {{text.split(',')[i]}} </td>
+                    <td> {{text.split(',')[i+1]}} </td>
+                    <td> {{text.split(',')[i+2]}} </td>
+                    <td> {{text.split(',')[i+3]}} </td>
+                    <td> {{text.split(',')[i+4]}} </td>
+                    <td style="color: red;"><b> {{text.split(',')[i+5]}} </b></td>
+                    <td> {{text.split(',')[i+6]}} </td>
+                </tr>
+            {%endif%}
+        {%elif 'Zaktualizowany' in text.split(',')[i+5]%}
+            {%if 'exist_logs' in option or ('last_update' in option and 'exist_logs' in option) %}
+                <tr>
+                    <td> {{text.split(',')[i]}} </td>
+                    <td> {{text.split(',')[i+1]}} </td>
+                    <td> {{text.split(',')[i+2]}} </td>
+                    <td> {{text.split(',')[i+3]}} </td>
+                    <td> {{text.split(',')[i+4]}} </td>
+                    <td style="color: rgb(107, 23, 218)"><b> {{text.split(',')[i+5]}} </b></td>
+                    <td> {{text.split(',')[i+6]}} </td>
+                </tr>
+            {%endif%}
+        {%elif 'Nowy wiersz' in text.split(',')[i+5]%}
+            {%if 'worked_logs' in option or ('last_update' in option and 'worked_logs' in option) %}
+                <tr>
+                    <td> {{text.split(',')[i]}} </td>
+                    <td> {{text.split(',')[i+1]}} </td>
+                    <td> {{text.split(',')[i+2]}} </td>
+                    <td> {{text.split(',')[i+3]}} </td>
+                    <td> {{text.split(',')[i+4]}} </td>
+                    <td style="color: green;"><b> {{text.split(',')[i+5]}} </b></td>
+                    <td> {{text.split(',')[i+6]}} </td>
+                </tr>
+            {%endif%}
+        {%elif 'Plik został utworzony' in text.split(',')[i+5]%}
+            {%if 'created_logs' in option or ('last_update' in option and 'created_logs' in option) %}
+                <tr>
+                    <td> {{text.split(',')[i]}} </td>
+                    <td> {{text.split(',')[i+1]}} </td>
+                    <td> {{text.split(',')[i+2]}} </td>
+                    <td> {{text.split(',')[i+3]}} </td>
+                    <td> {{text.split(',')[i+4]}} </td>
+                    <td style="color: orange;"><b> {{text.split(',')[i+5]}} </b></td>
+                    <td> {{text.split(',')[i+6]}} </td>
+                </tr>
+            {%endif%}
+        {%endif%}
+    {%endfor%}
+    </tbody>
+</table>
+</form>
+
+<div style="text-align: center; font-weight: bold; margin-top:1%">
+<form id="datatable_filter" class="dataTables_filter" method="post">
+    <input class="input_option" type="checkbox" name="options" value="error_logs" onChange="this.form.submit()" {%if 'error_logs' in option%} checked {%endif%}> Pominięte
+    <input class="input_option" type="checkbox" name="options" value="exist_logs" onChange="this.form.submit()" {%if 'exist_logs' in option%} checked {%endif%}> Zaktualizowane
+    <input class="input_option" type="checkbox" name="options" value="worked_logs" onChange="this.form.submit()" {%if 'worked_logs' in option%} checked {%endif%}> Dodane
+    <input class="input_option" type="checkbox" name="options" value="created_logs" onChange="this.form.submit()" {%if 'created_logs' in option%} checked {%endif%}> Nowe pliki
+    <input class="input_option" type="checkbox" name="options" value="last_update" onChange="this.form.submit()" {%if 'last_update' in option%} checked {%endif%}> Ostatni update
+    <input class="input_option" type="checkbox" name="options" value="all_logs" onChange="this.form.submit()" {%if 'all_logs' in option%} checked {%endif%}> Zaznacz wszystkie
+    <br>
+    <input class="input_option" type="checkbox" name="options" value="remove_logs"> Usuń Logi
+    <input style="margin-top:1%" type="submit" value="Zatwierdź Usunięcie">
+</form>
+</div>
+
+{% endblock content %}

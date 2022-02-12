@@ -1,0 +1,91 @@
+{% extends "index.html" %}
+{% block content %}
+    <h1 style="text-align: center;">Przesyłanie Plików</h1>
+
+{%if 'Prześlij plik' not in refresh and 'Zatwierdź' not in submiter %}
+    <form action="{{ url_for('upload_files') }}" class="dropzone">
+    </form>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.7.1/min/dropzone.min.js"></script>
+    <br>
+{%endif%}
+    <script type="text/javascript">
+        $(document).ready(function () {
+        $('#datatable2').dataTable()
+        });
+    </script>
+
+<form id="datatable_filter" class="dataTables_filter" method="post">
+    {%if 'Prześlij plik' not in refresh and 'Zatwierdź' not in submiter %}
+        <input class="container RefreshTable" type="submit" name="refresh" value="Prześlij plik">
+    {%endif%}
+    {%if 'Prześlij plik' in refresh or 'Zatwierdź' in submiter %}
+    <div>    
+        <div class = "alert_window" style="text-align: center;">Czy aktualizować baze za pomocą przesłanego pliku?
+            <input class="input_option" type="radio" name="confirmed" value="approved" > TAK
+            <input class="input_option" type="radio" name="confirmed" value="denied" > NIE
+        </div>
+        <div class = "quest_window" style="text-align: center;">Czy zaktualizowac dane widniejacych juz wierszy?
+            <input class="input_option" type="checkbox" name="overwrite" value="approved" >
+            <input type="submit" class="alert_button input_option" name="submiter" value="Zatwierdź">
+        </div>
+    </div>
+    {%if 'Prześlij plik' in refresh and 'Zatwierdź' not in submiter %}
+        <input class="container RefreshTable" type="submit" name="refresh" value="Usuń plik">
+    {%endif%}
+    <table id="datatable2" class="display">
+        <thead>
+            <tr>
+                <th style="text-align: center;">FILENAME</th>
+                <th style="text-align: center;">ID</th>
+                <th style="text-align: center;">SYMBOL</th>
+                <th style="text-align: center;">DATA</th>
+                <th style="text-align: center;">NUMER</th>
+                <th style="text-align: center;">INFORMACJA</th>
+            </tr>
+        </thead>
+        <tbody>
+        {%for i in range(0, (text.split(',')|length - 1), 6)%}
+            {%if 'Błędna' in text.split(',')[i+6]%}
+                    <tr>
+                        <td> {{text.split(',')[i]}} </td>
+                        <td> {{text.split(',')[i+1]}} </td>
+                        <td> {{text.split(',')[i+2]}} </td>
+                        <td> {{text.split(',')[i+3]}} </td>
+                        <td> {{text.split(',')[i+4]}} </td>
+                        <td style="color: red;"><b> {{text.split(',')[i+5]}} </b></td>
+                    </tr>
+            {%elif 'Ten wiersz już istnieje' in text.split(',')[i+5]%}
+                    <tr>
+                        <td> {{text.split(',')[i]}} </td>
+                        <td> {{text.split(',')[i+1]}} </td>
+                        <td> {{text.split(',')[i+2]}} </td>
+                        <td> {{text.split(',')[i+3]}} </td>
+                        <td> {{text.split(',')[i+4]}} </td>
+                        <td style="color: rgb(107, 23, 218)"><b> {{text.split(',')[i+5]}} </b></td>
+                    </tr>
+            {%elif 'Ten wiersz nie widnieje w bazie' in text.split(',')[i+5]%}
+                    <tr>
+                        <td> {{text.split(',')[i]}} </td>
+                        <td> {{text.split(',')[i+1]}} </td>
+                        <td> {{text.split(',')[i+2]}} </td>
+                        <td> {{text.split(',')[i+3]}} </td>
+                        <td> {{text.split(',')[i+4]}} </td>
+                        <td style="color: green;"><b> {{text.split(',')[i+5]}} </b></td>
+                    </tr>
+            {%elif 'Nie ma pliku z wierszami o takim symbolu' in text.split(',')[i+5]%}
+                    <tr>
+                        <td> {{text.split(',')[i]}} </td>
+                        <td> {{text.split(',')[i+1]}} </td>
+                        <td> {{text.split(',')[i+2]}} </td>
+                        <td> {{text.split(',')[i+3]}} </td>
+                        <td> {{text.split(',')[i+4]}} </td>
+                        <td style="color: orange;"><b> {{text.split(',')[i+5]}} </b></td>
+                    </tr>
+            {%endif%}
+        {%endfor%}
+        </tbody>
+    </table>
+    {%endif%}
+</form>
+
+{% endblock content %}
